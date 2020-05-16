@@ -62,6 +62,9 @@ app.get("/users/:id", (req, res) => {
 app.get("/tasks", (req, res) => {
   Task.find({})
     .then((result) => {
+      if (!result) {
+        return res.status(404).send();
+      }
       res.status(200).send(result);
     })
     .catch((err) => {
@@ -74,6 +77,9 @@ app.get("/task/:id", (req, res) => {
   const _id = req.params.id;
   Task.findById(_id)
     .then((result) => {
+      if (!result) {
+        return res.status(404).send();
+      }
       res.status(200).send(result);
     })
     .catch((err) => {
