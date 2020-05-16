@@ -58,6 +58,18 @@ app.get("/users/:id", (req, res) => {
     });
 });
 
+// getting all tasks from database
+app.get("/tasks", (req, res) => {
+  Task.find({})
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(404).send(err);
+    });
+});
+
+
 // listening on post 3000 any other
 app.listen(port, () => {
   console.log(`server is up on port ${port}`);
