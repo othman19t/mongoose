@@ -21,7 +21,7 @@ app.post("/users", (req, res) => {
 });
 
 // save data into tasks collection when post request is made
-app.use("/task", (req, res) => {
+app.post("/task", (req, res) => {
   const task = new Task(req.body);
   task
     .save()
@@ -44,7 +44,7 @@ app.get("/users", (req, res) => {
     });
 });
 
-// read single user 
+// read single user
 app.get("/users/:id", (req, res) => {
   const _id = req.params.id;
   User.findById(_id)
