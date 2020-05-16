@@ -69,6 +69,17 @@ app.get("/tasks", (req, res) => {
     });
 });
 
+//getting one record from tasks by id
+app.get("/task/:id", (req, res) => {
+  const _id = req.params.id;
+  Task.findById(_id)
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(404).send(err);
+    });
+});
 
 // listening on post 3000 any other
 app.listen(port, () => {
