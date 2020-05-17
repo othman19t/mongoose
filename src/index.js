@@ -50,18 +50,14 @@ app.get("/users/:id", async (req, res) => {
   }
 });
 
-// getting all tasks from database
-app.get("/tasks", (req, res) => {
-  Task.find({})
-    .then((result) => {
-      if (!result) {
-        return res.status(404).send();
-      }
-      res.status(200).send(result);
-    })
-    .catch((err) => {
-      res.status(404).send(err);
-    });
+//Async-Await read all tasks from database
+app.get("/tasks", async (req, res) => {
+  try {
+    const tasks = await Task.find({});
+    res.status(200).send(tasks);
+  } catch (err) {
+    res.status(404).send(err);
+  }
 });
 
 //getting one record from tasks by id
