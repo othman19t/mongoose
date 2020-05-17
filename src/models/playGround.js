@@ -43,14 +43,30 @@ const Task = require("../models/task");
 //     console.log(err);
 //   });
 
-// async-await update and count
-const updateAgeAndCount = async (id, age) => {
-  const user = await User.findByIdAndUpdate(id, { age });
-  const count = await User.countDocuments({ age });
+// // async-await update and count
+// const updateAgeAndCount = async (id, age) => {
+//   const user = await User.findByIdAndUpdate(id, { age });
+//   const count = await User.countDocuments({ age });
+//   return count;
+// };
+// //calling function
+// updateAgeAndCount("5ebdcdd0949baa1392ee3a1b", 100)
+//   .then((count) => {
+//     console.log(count);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+//async-await delete and count
+const deleteAndCountTasks = async (id, { completed }) => {
+  const delTask = await Task.findByIdAndDelete(id);
+  const count = await Task.countDocuments(completed);
   return count;
 };
-//calling function
-updateAgeAndCount("5ebdcdd0949baa1392ee3a1b", 100)
+
+// calling function
+deleteAndCountTasks("5ebdd81c419b2f13ef995377", false)
   .then((count) => {
     console.log(count);
   })
