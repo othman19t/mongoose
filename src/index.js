@@ -29,15 +29,14 @@ app.post("/task", async (req, res) => {
   }
 });
 
-// read all users when request is been made
-app.get("/users", (req, res) => {
-  User.find({})
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.status(500).send();
-    });
+//Async-Await read all users when request is been made
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 // read single user
