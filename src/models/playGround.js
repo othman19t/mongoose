@@ -15,9 +15,18 @@ User.findByIdAndUpdate(id, { age: 1000 })
     console.log(err);
   });
 
-
 //load all tasks
 Task.find({})
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+// delete task by id
+const recordID = "5ec06e212fddac092cd531bb";
+Task.findByIdAndDelete(recordID)
   .then((result) => {
     console.log(result);
   })
