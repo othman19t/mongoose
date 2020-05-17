@@ -18,17 +18,15 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// save data into tasks collection when post request is made
-app.post("/task", (req, res) => {
+// Async-Await create a task when post request is made
+app.post("/task", async (req, res) => {
   const task = new Task(req.body);
-  task
-    .save()
-    .then((result) => {
-      res.status(201).send(result);
-    })
-    .catch((err) => {
-      res.status(400).send(err);
-    });
+  try {
+    await task.save();
+    res.status(201).send(task);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 // read all users when request is been made
