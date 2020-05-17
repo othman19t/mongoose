@@ -66,7 +66,7 @@ const deleteAndCountTasks = async (id, { completed }) => {
 };
 
 // calling function
-deleteAndCountTasks("5ebdd81c419b2f13ef995377", false)
+deleteAndCountTasks("5ec06de42fddac092cd531ba", false)
   .then((count) => {
     console.log(count);
   })
