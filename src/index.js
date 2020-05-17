@@ -39,18 +39,15 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// read single user
-app.get("/users/:id", (req, res) => {
-  const _id = req.params.id;
-  User.findById(_id)
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      if (err) {
-        res.status(404).send("users is not found");
-      }
-    });
+//Async-Await read single user
+app.get("/users/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const user = await User.findById(_id);
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(404).send(err);
+  }
 });
 
 // getting all tasks from database
