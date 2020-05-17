@@ -96,6 +96,21 @@ app.patch("/users/:id", async (req, res) => {
   }
 });
 
+//Async-Await update task by id
+app.patch("/task/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const newData = req.body;
+    const task = await Task.findByIdAndUpdate(_id, newData, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).send(task);
+  } catch (err) {
+    res.status(404).send(err);
+  }
+});
+
 // listening on post 3000 any other
 app.listen(port, () => {
   console.log(`server is up on port ${port}`);
