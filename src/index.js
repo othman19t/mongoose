@@ -7,17 +7,15 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// save data into users collection when post request is made
-app.post("/users", (req, res) => {
+// Async-Await create user when post request is made
+app.post("/users", async (req, res) => {
   const user = new User(req.body);
-  user
-    .save()
-    .then((result) => {
-      res.status(201).send(result);
-    })
-    .catch((err) => {
-      res.status(400).send(err);
-    });
+  try {
+    await user.save();
+    res.status(201).send(user);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 // save data into tasks collection when post request is made
