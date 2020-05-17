@@ -73,6 +73,12 @@ app.get("/task/:id", async (req, res) => {
 
 //Async-Await update user by id
 app.patch("/users/:id", async (req, res) => {
+  // limit what user can update
+  const update = Object.keys(res.body);
+  const allowedUpdates = ["name", "email", "password", "age"];
+  const isValidOperation = update.every((update) =>
+    allowedUpdates.includes(update)
+  );
   try {
     const _id = req.params.id;
     const NewData = req.body;
