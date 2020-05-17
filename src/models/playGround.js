@@ -33,3 +33,12 @@ Task.findByIdAndDelete(recordID)
   .catch((err) => {
     console.log(err);
   });
+
+// count not incompleted number of task
+Task.countDocuments({ completed: false })
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
