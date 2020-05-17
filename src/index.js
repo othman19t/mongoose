@@ -60,19 +60,15 @@ app.get("/tasks", async (req, res) => {
   }
 });
 
-//getting one record from tasks by id
-app.get("/task/:id", (req, res) => {
-  const _id = req.params.id;
-  Task.findById(_id)
-    .then((result) => {
-      if (!result) {
-        return res.status(404).send();
-      }
-      res.status(200).send(result);
-    })
-    .catch((err) => {
-      res.status(404).send(err);
-    });
+//Async-Await read one record from tasks by id
+app.get("/task/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const task = await Task.findById(_id);
+    res.status(200).send(task);
+  } catch (err) {
+    res.status(404).send(err);
+  }
 });
 
 // listening on post 3000 any other
