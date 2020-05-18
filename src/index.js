@@ -135,6 +135,19 @@ app.delete("/user/:id", async (req, res) => {
   }
 });
 
+// Async-Await delete a  task by id
+app.delete("/task/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const task = await Task.findByIdAndDelete(_id);
+    if (!task) {
+      return res.status(404).send({ Error: "Task does not exist!" });
+    }
+    res.status(200).send(task);
+  } catch (err) {
+    res.status(404).send(err);
+  }
+});
 // listening on post 3000 any other
 app.listen(port, () => {
   console.log(`server is up on port ${port}`);
