@@ -1,8 +1,8 @@
 const mongoose = require("mongoose"); // npm i mongoose
 const validator = require("validator"); // npm i validator
-
-// Define a model
-const User = mongoose.model("User", {
+const bcrypt = require("bcryptjs"); // npm i bcryptjs
+// Define a model with Schema and hash passwords
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -40,5 +40,15 @@ const User = mongoose.model("User", {
     },
   },
 });
+//modifying code to hash passwords
+userSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 8);
+  }
+  next();
+});
+
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

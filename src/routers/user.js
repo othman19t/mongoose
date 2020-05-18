@@ -50,10 +50,10 @@ router.patch("/users/:id", async (req, res) => {
   try {
     const _id = req.params.id;
     const NewData = req.body;
-    const user = await User.findByIdAndUpdate(_id, NewData, {
-      new: true,
-      runValidators: true,
-    });
+    //modifying the update code to work with hashing the password
+    const user = await User.findById(_id);
+    update.forEach((update) => (user[update] = req.body[update]));
+    await user.save();
     res.status(200).send(user);
   } catch (err) {
     res.status(404).send(err);
