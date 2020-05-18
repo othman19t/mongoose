@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
     lowercase: true,
+    unique: true, //to insure email is used one time only
     validate(value) {
       if (!validator.isEmail(value)) {
         throw new Error("invalid email");
@@ -40,6 +41,20 @@ const userSchema = new mongoose.Schema({
     },
   },
 });
+
+// to login users
+userSchema.static.findByCredentials = async (email, password) => {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error("unable to login");
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw new Error("Unable to login");
+  }
+  return user;
+};
+
 //modifying code to hash passwords
 userSchema.pre("save", async function (next) {
   const user = this;
