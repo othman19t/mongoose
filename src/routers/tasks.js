@@ -48,10 +48,10 @@ router.patch("/task/:id", async (req, res) => {
   try {
     const _id = req.params.id;
     const newData = req.body;
-    const task = await Task.findByIdAndUpdate(_id, newData, {
-      new: true,
-      runValidators: true,
-    });
+    // modify code to work with middleware
+    const task = await Task.findById(_id);
+    update.forEach((update) => (task[update] = newData[update]));
+    await task.save();
     res.status(200).send(task);
   } catch (err) {
     res.status(404).send(err);
