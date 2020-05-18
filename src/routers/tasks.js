@@ -61,11 +61,8 @@ router.patch("/task/:id", async (req, res) => {
 // Async-Await delete a  task by id
 router.delete("/task/:id", async (req, res) => {
   try {
-    // modify code to work with middleware
     const _id = req.params.id;
-    const task = await Task.findById(_id);
-    update.forEach((update) => (task[update] = req.body[update]));
-    await task.save();
+    const task = await Task.findByIdAndDelete(_id);
     if (!task) {
       return res.status(404).send({ Error: "Task does not exist!" });
     }
