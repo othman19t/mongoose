@@ -16,3 +16,13 @@ app.use(taskRouter);
 app.listen(port, () => {
   console.log(`server is up on port ${port}`);
 });
+
+// exploring jsonwebtoken for authenticating users
+const jwt = require("jsonwebtoken"); // npm i jsonwebtoken
+const myfun = async () => {
+  const token = jwt.sign({ _id: "12345" }, "123456", { expiresIn: "7 days" });
+  console.log(token);
+  const data = jwt.verify(token, "123456");
+  console.log(data);
+};
+myfun();
