@@ -20,9 +20,11 @@ app.listen(port, () => {
 // exploring jsonwebtoken for authenticating users
 const jwt = require("jsonwebtoken"); // npm i jsonwebtoken
 const myfun = async () => {
-  const token = jwt.sign({ _id: "12345" }, "123456", { expiresIn: "7 days" });
+  const token = jwt.sign({ _id: "12345" }, "thisismynewcourse", {
+    expiresIn: "7 days",
+  });
   console.log(token);
-  const data = jwt.verify(token, "123456");
+  const data = jwt.verify(token, "thisismynewcourse");
   console.log(data);
 };
 myfun();
